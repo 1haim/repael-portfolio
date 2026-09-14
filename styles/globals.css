@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Design tokens ---------- */
+:root {
+  --bg: #f5f4f1;
+  --bg-dark: #0f0f0f;
+  --accent: #0f6e5e;
+  --text: #1a1a1a;
+  --muted: #5b5b5b;
+  --muted-on-dark: #b8b8b8;
+  --rule: rgba(26, 26, 26, 0.12);
+  --rule-on-dark: rgba(255, 255, 255, 0.14);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --tracking-wide: 0.18em;
+  --tracking-display: -0.02em;
+
+  --section-y: clamp(6rem, 14vh, 11rem);
+  --gutter: clamp(1.25rem, 5vw, 5rem);
+  --measure: 62ch;
+}
+
+/* ---------- Reset / base ---------- */
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.125rem; /* 18px */
+  }
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ---------- Focus ---------- */
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.on-dark :focus-visible {
+  outline-color: #fff;
+}
+
+/* ---------- Type helpers ---------- */
+.eyebrow {
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.on-dark .eyebrow {
+  color: #7fd1c0;
+}
+
+.display {
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  line-height: 1.02;
+}
+
+.stat-number {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.rule {
+  border-color: var(--rule);
+}
+.on-dark .rule {
+  border-color: var(--rule-on-dark);
+}
+
+/* Links */
+a.inline-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  transition: color 0.4s var(--ease);
+}
+a.inline-link:hover {
+  color: var(--accent);
+}
+.on-dark a.inline-link:hover {
+  color: #7fd1c0;
+}
+
+/* ---------- Motion ----------
+   Elements animated by GSAP start hidden via this attribute
+   so there is no flash before the timeline runs. With reduced
+   motion, they render visible immediately and GSAP is skipped. */
+[data-reveal] {
+  opacity: 0;
+}
+.no-motion [data-reveal] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border-radius: 4px;
+}
+.skip-link:focus-visible {
+  top: 1rem;
+  outline-color: var(--text);
+}
