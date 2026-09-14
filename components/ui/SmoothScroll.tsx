@@ -1,10 +1,22 @@
 "use client";
 
 import { useEffect } from "react";
-import { initLenis } from "@/lib/lenis";
+import { startLenis, stopLenis } from "@/lib/lenis";
+import { useMotion } from "@/lib/motion";
 
-/** Mounts Lenis smooth scroll for the whole page. Renders nothing. */
+/** Mounts Lenis while animations are enabled; native scrolling when reduced. Renders nothing. */
 export default function SmoothScroll() {
-  useEffect(() => initLenis(), []);
+  const { reduced, ready } = useMotion();
+
+  useEffect(() => {
+    if (!ready) return;
+    if (reduced) {
+      stopLenis();
+      return;
+    }
+    startLenis();
+    return () => stopLenis();
+  }, [reduced, ready]);
+
   return null;
 }

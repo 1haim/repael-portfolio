@@ -1,11 +1,14 @@
-import { speaking, site } from "@/data/content";
+import { speaking } from "@/data/content";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ParallaxImage from "@/components/ui/ParallaxImage";
+import Typewriter from "@/components/ui/Typewriter";
+import type { SiteImage } from "@/data/content";
 
 /** [7] SPEAKING + WHAT I'M LOOKING FOR — ends with the CTA. */
-export default function Speaking() {
+export default function Speaking({ image }: { image: SiteImage | null }) {
   const { lookingFor } = speaking;
   return (
-    <section id="contact" aria-label={speaking.ariaLabel} className="px-gutter py-section-y">
+    <section id="speaking" aria-label={speaking.ariaLabel} className="px-gutter py-section-y">
       <div className="mx-auto w-full max-w-site">
         {/* Speaking */}
         <ScrollReveal
@@ -16,9 +19,16 @@ export default function Speaking() {
           distance={32}
           className="grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16"
         >
-          <p data-reveal className="eyebrow">
-            {speaking.eyebrow}
-          </p>
+          <div>
+            <h2 id="speaking-heading" data-reveal className="eyebrow">
+              {speaking.eyebrow}
+            </h2>
+            {image ? (
+              <div className="mt-8 hidden max-w-[22rem] md:block">
+                <ParallaxImage src={`/${image.file}`} alt={image.alt} aspect={image.aspect} sizes="(min-width: 768px) 30vw, 100vw" />
+              </div>
+            ) : null}
+          </div>
           <div>
             <ul className="divide-y rule">
               {speaking.talks.map((talk) => (
@@ -45,32 +55,14 @@ export default function Speaking() {
             {lookingFor.paragraphs.map((text, i) => (
               <p
                 key={i}
-                className={`max-w-[34ch] text-[clamp(1.5rem,2.6vw,2.375rem)] font-semibold leading-[1.3] tracking-tight text-ink ${
+                className={`lead max-w-[36ch] text-[clamp(1.5rem,2.6vw,2.375rem)] text-ink ${
                   i > 0 ? "mt-8" : ""
                 }`}
               >
                 {text}
               </p>
             ))}
-            <p className="display mt-12 text-[clamp(2rem,4vw,3.5rem)] text-accent">{lookingFor.closing}</p>
-
-            <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
-              <a
-                href={`mailto:${site.email}`}
-                className="inline-flex items-center justify-center rounded-full bg-accent px-8 py-4 text-lg font-semibold text-white transition-colors duration-500 ease-out hover:bg-ink"
-              >
-                {site.email}
-              </a>
-              <a
-                href={site.linkedinUrl}
-                target="_blank"
-                rel="me noopener"
-                className="inline-link inline-flex items-center justify-center px-2 py-3 text-lg font-semibold text-ink"
-              >
-                {site.linkedin}
-                <span className="sr-only">{site.ui.newTab}</span>
-              </a>
-            </div>
+            <Typewriter text={lookingFor.closing} className="display mt-12 text-[clamp(2rem,4vw,3.5rem)] text-ink" />
           </div>
         </ScrollReveal>
       </div>

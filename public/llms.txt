@@ -1,0 +1,34 @@
+# Haim Repael Azoulay — repael.com
+
+> Product design executive. VP Design & Experience at accessiBe (2020–present; Head of Design 2020–2022). Based in Tel Aviv, open to relocation. Targeting VP Product Design / Head of Design roles.
+
+## Who
+- 15+ years across product design, brand, and entrepreneurship at executive level.
+- Built the design function at accessiBe from one designer to a 16-person multidisciplinary organization with full budget ownership, while the company grew from under $1M to nearly $60M ARR and from 16 to 200+ employees.
+- Runs design as an evidence-driven function: experiments validated in the data warehouse; every designer uses Mixpanel, FullStory, and Clarity directly.
+
+## Measured impact (data-warehouse-validated experiments)
+- Tailored onboarding: demo bookings 13.2% vs 5.0% (2.64×). Design lead: Ofri Bichar.
+- Signup redesign: trial activation 36.4% vs 30.4% (+6.0 pp). Design lead: David Amsalem.
+- Domain-first onboarding: trial activation 49.9% vs 45.9% (+4.0 pp). Design lead: Assi Kraif.
+
+## AI and accessibility
+- Built two Figma accessibility-auditor proofs of concept, including a design-time engine that identifies and classifies design-system components against WCAG/ARIA rules; the company staffed production development on that basis. Still on the steering team for WCAG/ARIA rules, validation, and MVP scope.
+- Led experience strategy for accessWidget Co-Pilot, accessFlow Code Agent, and Auto-Resolve.
+- Built accessLabs, an inclusive usability-testing capability: two international team leaders, up to 10 blind analysts, six-figure annual budget.
+
+## Career
+- rep creative (2010–present): independent studio, 100+ projects, 50+ clients including Ituran, Toyota Israel, monday.com, Amdocs, Similarweb, Clalit, Bank Hapoalim, CET/Matach, Technion.
+- Toptal (2017–present): member of the invitation-only network.
+- accessiBe (2020–present): VP Design & Experience.
+- Earlier: 888.com via Mytopia acquisition (2009–2010); Danbar International (2008–2009); American Lifetime (2010): connected hardware/software for older adults and people with dementia; CET/Matach (2014–2017): 13 native apps for children with disabilities, first place in the education category of the People & Computers competition; RealFace (acquired by Apple, 2017).
+
+## Speaking
+- UXDX USA 2025 — Accessibility in Practice: Integrating Accessibility Across the Product Lifecycle.
+- UXDX EMEA 2026 — AI & Web Accessibility in Practice: Closing the Design-to-Code Gap.
+- Founder and producer of Beyond Pixels, a 200+ attendee design and product event.
+
+## Contact
+- Email: repael@me.com
+- LinkedIn: https://www.linkedin.com/in/1haim
+- Site: https://repael.com

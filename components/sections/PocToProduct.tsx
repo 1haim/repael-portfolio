@@ -1,6 +1,8 @@
 import { pocToProduct } from "@/data/content";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import ParallaxImage from "@/components/ui/ParallaxImage";
+import type { SiteImage } from "@/data/content";
 
 const KEYWORDS = /\b(export|function|const|if|return)\b/g;
 
@@ -14,7 +16,7 @@ function highlight(line: string) {
     <>
       {parts.map((part, i) =>
         i % 2 === 1 ? (
-          <span key={i} className="text-[#7fd1c0]">
+          <span key={i} className="text-accent-dark">
             {part}
           </span>
         ) : (
@@ -30,7 +32,7 @@ function highlight(line: string) {
  * [4] FROM POC TO PRODUCT — 60% text left, 40% static code block right.
  * Text enters from the left, code block from the right, on scroll.
  */
-export default function PocToProduct() {
+export default function PocToProduct({ image }: { image: SiteImage | null }) {
   const { codeSnippet } = pocToProduct;
   return (
     <section id="poc" aria-label={pocToProduct.ariaLabel} className="px-gutter py-section-y">
@@ -39,11 +41,11 @@ export default function PocToProduct() {
 
         <div className="mt-14 grid gap-12 md:mt-20 md:grid-cols-[3fr_2fr] md:gap-16 lg:gap-24">
           <ScrollReveal from="left" distance={48} className="max-w-measure">
-            <p className="text-[1.25rem] font-medium leading-[1.55] text-ink sm:text-[1.5rem]">
+            <p className="lead text-[1.375rem] text-ink sm:text-[1.625rem]">
               {pocToProduct.story}
             </p>
 
-            <p className="mt-10 text-sm font-semibold uppercase tracking-[0.18em] text-muted">
+            <p className="mt-10 text-sm font-medium uppercase tracking-[0.12em] text-muted">
               {pocToProduct.strategyLabel}
             </p>
             <ul className="mt-4 flex flex-wrap gap-x-3 gap-y-2 text-lg font-semibold text-ink">
@@ -62,19 +64,19 @@ export default function PocToProduct() {
           </ScrollReveal>
 
           <ScrollReveal from="right" distance={48} className="md:pt-2">
-            <figure
+            <div
               role="img"
               aria-label={codeSnippet.ariaLabel}
               className="overflow-hidden rounded-lg bg-bg-dark text-white shadow-[0_30px_60px_-30px_rgba(15,15,15,0.5)]"
             >
-              <figcaption aria-hidden="true" className="flex items-center gap-2 border-b border-white/10 px-5 py-3 text-xs text-white/60">
+              <div aria-hidden="true" className="flex items-center gap-2 border-b border-white/10 px-5 py-3 text-xs text-white/60">
                 <span aria-hidden="true" className="flex gap-1.5">
                   <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                   <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                   <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
                 </span>
                 <span className="ml-2 font-mono">{codeSnippet.filename}</span>
-              </figcaption>
+              </div>
               <pre aria-hidden="true" className="overflow-x-auto px-5 py-5 font-mono text-[0.8rem] leading-[1.75] sm:text-[0.85rem]">
                 <code>
                   {codeSnippet.lines.map((line, i) => (
@@ -85,7 +87,12 @@ export default function PocToProduct() {
                   ))}
                 </code>
               </pre>
-            </figure>
+            </div>
+            {image ? (
+              <div className="mt-6">
+                <ParallaxImage src={`/${image.file}`} alt={image.alt} aspect={image.aspect} />
+              </div>
+            ) : null}
           </ScrollReveal>
         </div>
 

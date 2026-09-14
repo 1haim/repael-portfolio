@@ -2,6 +2,7 @@ import { numbers } from "@/data/content";
 import SectionHeader from "@/components/ui/SectionHeader";
 import ImpactCard from "@/components/ui/ImpactCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
+import Typewriter from "@/components/ui/Typewriter";
 
 /**
  * [3] THE NUMBERS — the one dark section. Three data-warehouse-validated
@@ -29,9 +30,7 @@ export default function Numbers() {
           className="mt-20 grid gap-6 border-t border-white/20 pt-10 md:mt-28 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:gap-16"
         >
           <p className="eyebrow">{numbers.pullout.label}</p>
-          <p className="max-w-measure text-[1.25rem] font-medium leading-[1.55] text-white sm:text-[1.5rem]">
-            {numbers.pullout.text}
-          </p>
+          <Typewriter dark text={numbers.pullout.text} className="lead max-w-measure text-[1.375rem] text-white sm:text-[1.625rem]" />
         </ScrollReveal>
       </div>
     </section>

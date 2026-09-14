@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, registerGsap, prefersReducedMotion, scrollOnce } from "@/lib/gsap";
+import { gsap, useGSAP, registerGsap, scrollOnce } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion";
 
 type Props = {
   index: number;
@@ -41,17 +42,18 @@ export default function ImpactCard({
 }: Props) {
   const root = useRef<HTMLLIElement>(null);
   const num = useRef<HTMLSpanElement>(null);
+  const { reduced, ready } = useMotion();
 
   useGSAP(
     () => {
       registerGsap();
       const el = root.current;
       const target = num.current;
-      if (!el || !target) return;
+      if (!el || !target || !ready) return;
 
-      if (prefersReducedMotion()) {
+      if (reduced) {
         target.textContent = headline;
-        gsap.set(el, { opacity: 1 });
+        gsap.set(el, { clearProps: "transform,opacity" });
         return;
       }
 
@@ -74,7 +76,7 @@ export default function ImpactCard({
         0.2,
       );
     },
-    { scope: root },
+    { scope: root, dependencies: [reduced, ready], revertOnUpdate: true },
   );
 
   return (
@@ -83,7 +85,7 @@ export default function ImpactCard({
       data-reveal
       className="flex flex-col border-t border-white/20 pt-7 md:min-h-[26rem]"
     >
-      <h3 className="text-sm font-semibold uppercase tracking-[0.18em] text-[#7fd1c0]">{title}</h3>
+      <h3 className="text-sm font-medium uppercase tracking-[0.12em] text-accent-dark">{title}</h3>
 
       <p className="mt-10 md:mt-14">
         <span className="stat-number block text-[3.75rem] text-white sm:text-[4.5rem] lg:text-[5.25rem]">
@@ -101,7 +103,6 @@ export default function ImpactCard({
       <p className="mt-auto pt-8 text-sm text-muted-dark">
         <span className="font-medium text-white/70">{creditLabel}</span>
         <span aria-hidden="true"> · </span>
-        <span className="sr-only">, </span>
         {credit}
       </p>
     </li>

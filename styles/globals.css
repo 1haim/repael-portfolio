@@ -4,23 +4,28 @@
 
 /* ---------- Design tokens ---------- */
 :root {
+  --ink: #1a1a1a;
+  --text: var(--ink);
   --bg: #f5f4f1;
   --bg-dark: #0f0f0f;
-  --accent: #0f6e5e;
-  --text: #1a1a1a;
-  --muted: #5b5b5b;
-  --muted-on-dark: #b8b8b8;
+  --accent: #9f4900; /* light backgrounds only: 5.57:1 on --bg */
+  --accent-on-dark: #e8853a; /* dark sections: 7.16:1 on --bg-dark */
+  --muted: #5b5b5b; /* 6.17:1 on --bg */
+  --muted-on-dark: #b8b8b8; /* 9.66:1 on --bg-dark */
   --rule: rgba(26, 26, 26, 0.12);
   --rule-on-dark: rgba(255, 255, 255, 0.14);
 
+  --font-sans: var(--font-fustat), system-ui, -apple-system, sans-serif;
+
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --tracking-wide: 0.18em;
+  --tracking-eyebrow: 0.12em;
   --tracking-display: -0.02em;
 
   --section-y: clamp(6rem, 14vh, 11rem);
   --gutter: clamp(1.25rem, 5vw, 5rem);
   --measure: 62ch;
+  --nav-h: 4.5rem;
 }
 
 /* ---------- Reset / base ---------- */
@@ -46,7 +51,8 @@ html.lenis body {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: var(--font-poppins), "Poppins", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans);
+  font-weight: 400;
   font-size: 1.0625rem; /* 17px */
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
@@ -64,40 +70,48 @@ body {
   color: #fff;
 }
 
-/* ---------- Focus ---------- */
+/* ---------- Focus ----------
+   Focus is never dimmed (WCAG 2.4.7). */
 :focus {
   outline: none;
 }
 :focus-visible {
-  outline: 3px solid var(--accent);
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
   border-radius: 2px;
+  opacity: 1 !important;
 }
 .on-dark :focus-visible {
-  outline-color: #fff;
+  outline-color: var(--accent-on-dark);
 }
 
 /* ---------- Type helpers ---------- */
 .eyebrow {
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.75rem;
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--accent);
 }
 .on-dark .eyebrow {
-  color: #7fd1c0;
+  color: var(--accent-on-dark);
 }
 
 .display {
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: var(--tracking-display);
   line-height: 1.02;
 }
 
+.lead {
+  font-weight: 300;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+}
+
 .stat-number {
-  font-weight: 700;
-  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  font-variant-numeric: proportional-nums;
   letter-spacing: -0.03em;
   line-height: 1;
 }
@@ -109,45 +123,102 @@ body {
   border-color: var(--rule-on-dark);
 }
 
-/* Links */
+/* ---------- Interactive text ----------
+   Hover dims to 0.55 over 220ms. Focus stays at full opacity. */
+.text-link {
+  color: inherit;
+  transition: opacity 220ms var(--ease);
+}
+.text-link:hover {
+  opacity: 0.55;
+}
+.text-link:focus-visible {
+  opacity: 1;
+}
+
 a.inline-link {
   color: inherit;
   text-decoration: underline;
   text-decoration-color: var(--accent);
   text-decoration-thickness: 2px;
   text-underline-offset: 0.2em;
-  transition: color 0.4s var(--ease);
+  transition: opacity 220ms var(--ease);
 }
 a.inline-link:hover {
-  color: var(--accent);
+  opacity: 0.55;
 }
-.on-dark a.inline-link:hover {
-  color: #7fd1c0;
+a.inline-link:focus-visible {
+  opacity: 1;
+}
+.on-dark a.inline-link {
+  text-decoration-color: var(--accent-on-dark);
 }
 
 /* ---------- Motion ----------
-   Elements animated by GSAP start hidden via this attribute
-   so there is no flash before the timeline runs. With reduced
-   motion, they render visible immediately and GSAP is skipped. */
+   Elements animated by GSAP start hidden via this attribute so there is no
+   flash before the timeline runs. When animations are reduced (OS setting or
+   the "Reduce animations" toggle), html.motion-reduced makes everything
+   render in its final state and GSAP is skipped. */
 [data-reveal] {
   opacity: 0;
 }
-.no-motion [data-reveal] {
+html.motion-reduced [data-reveal],
+html.no-motion [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  [data-reveal] {
+  html:not(.motion-enabled) [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
   }
-  *,
-  *::before,
-  *::after {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
+}
+html.motion-reduced *,
+html.motion-reduced *::before,
+html.motion-reduced *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+/* Typewriter characters start hidden; reduced mode shows them at rest. */
+.tw-char {
+  opacity: 0;
+}
+html.motion-reduced .tw-char,
+html.no-motion .tw-char {
+  opacity: 1 !important;
+  color: inherit !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html:not(.motion-enabled) .tw-char {
+    opacity: 1 !important;
+    color: inherit !important;
   }
+}
+
+/* Hero: the landing slot only exists for the scroll transition. */
+html.motion-reduced [data-hero-slot] {
+  display: none;
+}
+
+/* Imagery: slightly desaturated, compositional rather than gallery. */
+.img-treat {
+  filter: saturate(0.85) contrast(1.05);
+}
+
+/* Paper grain over the whole page, 3.5% — below the nav, above content. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background-image: url("/grain.png");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  opacity: 0.035;
 }
 
 /* Skip link */
@@ -164,5 +235,5 @@ a.inline-link:hover {
 }
 .skip-link:focus-visible {
   top: 1rem;
-  outline-color: var(--text);
+  outline-color: var(--ink);
 }

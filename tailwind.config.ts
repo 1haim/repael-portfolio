@@ -12,12 +12,22 @@ const config: Config = {
         bg: "var(--bg)",
         "bg-dark": "var(--bg-dark)",
         accent: "var(--accent)",
-        ink: "var(--text)",
+        "accent-dark": "var(--accent-on-dark)",
+        ink: "var(--ink)",
         muted: "var(--muted)",
         "muted-dark": "var(--muted-on-dark)",
       },
       fontFamily: {
-        sans: ["var(--font-poppins)", "Poppins", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)"],
+      },
+      fontWeight: {
+        extralight: "200",
+        light: "300",
+        normal: "400",
+        medium: "500",
+        semibold: "600",
+        bold: "700",
+        extrabold: "800",
       },
       transitionTimingFunction: {
         out: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -25,6 +35,7 @@ const config: Config = {
       spacing: {
         gutter: "var(--gutter)",
         "section-y": "var(--section-y)",
+        nav: "var(--nav-h)",
       },
       maxWidth: {
         measure: "var(--measure)",

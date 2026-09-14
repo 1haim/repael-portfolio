@@ -18,7 +18,7 @@ export default function Trajectory() {
             >
               <div>
                 <h3 className="display text-[1.75rem] text-ink sm:text-[2.25rem]">{row.org}</h3>
-                <p className="mt-2 text-sm font-semibold uppercase tracking-[0.18em] text-accent">{row.period}</p>
+                <p className="mt-2 text-sm font-medium uppercase tracking-[0.12em] text-accent">{row.period}</p>
               </div>
               <div className="max-w-measure">
                 <p className="text-[1.125rem] font-medium text-ink sm:text-[1.25rem]">

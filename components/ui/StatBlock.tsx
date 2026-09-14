@@ -1,7 +1,8 @@
 "use client";
 
 import { useRef } from "react";
-import { gsap, useGSAP, registerGsap, prefersReducedMotion, scrollOnce } from "@/lib/gsap";
+import { gsap, useGSAP, registerGsap, scrollOnce } from "@/lib/gsap";
+import { useMotion } from "@/lib/motion";
 
 type Props = {
   /** Starting point shown small above the number, e.g. "< $1M" or "16". Optional. */
@@ -41,17 +42,18 @@ export default function StatBlock({
 }: Props) {
   const root = useRef<HTMLDivElement>(null);
   const num = useRef<HTMLSpanElement>(null);
+  const { reduced, ready } = useMotion();
 
   useGSAP(
     () => {
       registerGsap();
       const el = root.current;
       const target = num.current;
-      if (!el || !target) return;
+      if (!el || !target || !ready) return;
 
-      if (prefersReducedMotion()) {
+      if (reduced) {
         target.textContent = display;
-        gsap.set(el, { opacity: 1 });
+        gsap.set(el, { clearProps: "transform,opacity" });
         return;
       }
 
@@ -74,7 +76,7 @@ export default function StatBlock({
         0.1,
       );
     },
-    { scope: root, dependencies: [value, display] },
+    { scope: root, dependencies: [value, display, reduced, ready], revertOnUpdate: true },
   );
 
   const numSize =

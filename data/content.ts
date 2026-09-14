@@ -5,9 +5,10 @@
 export const site = {
   domain: "repael.com",
   year: "2026",
-  title: "Haim Repael Azoulay — Product Design & Experience Executive",
+  title: "Haim Repael Azoulay — VP Product Design & Experience",
   description:
-    "Builds design organizations that move business metrics. Hands-on in AI and accessibility. VP Design & Experience at accessiBe.",
+    "Design executive. Built design at accessiBe from one designer to a 16-person organization through growth from under $1M to nearly $60M ARR. Hands-on in AI and accessibility. Tel Aviv.",
+  ogImage: "/og.png",
   email: "repael@me.com",
   linkedin: "linkedin.com/in/1haim",
   linkedinUrl: "https://www.linkedin.com/in/1haim",
@@ -15,6 +16,24 @@ export const site = {
   ui: {
     skipLink: "Skip to content",
     newTab: " (opens in a new tab)",
+  },
+} as const;
+
+export const nav = {
+  ariaLabel: "Primary",
+  menuLabel: "Menu",
+  closeLabel: "Close",
+  links: [
+    { label: "Work", href: "#trajectory" },
+    { label: "Impact", href: "#numbers" },
+    { label: "Approach", href: "#poc" },
+    { label: "Speaking", href: "#speaking" },
+    { label: "Contact", href: "#contact" },
+  ],
+  toggle: {
+    label: "Reduce animations",
+    announceReduced: "Animations reduced",
+    announceEnabled: "Animations enabled",
   },
 } as const;
 
@@ -209,6 +228,86 @@ export const speaking = {
     closing: "If that's your company — let's talk.",
   },
   ctaLabel: "Get in touch",
+} as const;
+
+/**
+ * Photos live in /public/images. Each renders only when its file exists.
+ * Alt text describes the content; adjust once the final photos are chosen.
+ */
+export const images = {
+  people: {
+    file: "images/uxdx-talk.jpg",
+    alt: "Haim Repael Azoulay on stage at UXDX, presenting to a seated audience with a slide on integrating accessibility across the product lifecycle behind him.",
+    aspect: 3 / 2,
+  },
+  speaking: {
+    file: "images/uxdx-stage.jpg",
+    alt: "Haim Repael Azoulay speaking at the UXDX conference podium, lit against a dark stage with the talk title on screen.",
+    aspect: 4 / 5,
+  },
+  poc: {
+    file: "images/auditor-screenshot.png",
+    alt: "Screenshot of the Figma accessibility-auditor prototype listing detected design-system components with their WCAG rule results.",
+    aspect: 4 / 3,
+  },
+} as const;
+
+export type SiteImage = { file: string; alt: string; aspect: number };
+
+export const closing = {
+  ariaLabel: "What comes next",
+  line: "Whatever you're building — it'll be used by people. Let's make sure it works for all of them.",
+  ctaLabel: "Email",
+} as const;
+
+export const faq = {
+  ariaLabel: "Frequently asked questions",
+  eyebrow: "FAQ",
+  headline: "Questions people ask",
+  items: [
+    {
+      q: "Who is Haim Repael Azoulay?",
+      a: "A product design executive based in Tel Aviv. VP Design & Experience at accessiBe since 2020 (Head of Design 2020–2022), where he built the design function from one designer into a 16-person organization while the company grew from under $1M to nearly $60M ARR and from 16 to 200+ employees. He speaks internationally on accessibility and AI and founded Beyond Pixels, a 200+ attendee design and product event.",
+    },
+    {
+      q: "What does a VP of Design do at a company like accessiBe?",
+      a: "Owns the design organization: structure, hiring, and budget. Runs design as an evidence-driven function, with experiments validated in the data warehouse and every designer working directly in Mixpanel, FullStory, and Clarity. Leads experience strategy for AI products such as accessWidget Co-Pilot, accessFlow Code Agent, and Auto-Resolve, builds inclusive research capability, and partners with product and engineering on funnel metrics like trial activation and demo bookings.",
+    },
+    {
+      q: "What is Haim Repael Azoulay's experience with AI and accessibility?",
+      a: "Hands-on. He built two Figma accessibility-auditor proofs of concept, including a design-time engine that classifies design-system components against WCAG and ARIA rules; the company staffed production development on that basis, and he remains on the steering team for rules, validation, and MVP scope. He built accessLabs, an inclusive usability-testing capability with up to 10 blind analysts, and speaks on AI and web accessibility at UXDX (USA 2025, EMEA 2026).",
+    },
+  ],
+} as const;
+
+/** Structured data for search and answer engines. */
+export const structuredData = {
+  person: {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `https://${site.domain}/#person`,
+    name: "Haim Repael Azoulay",
+    givenName: "Haim",
+    familyName: "Azoulay",
+    jobTitle: "VP Design & Experience",
+    worksFor: { "@type": "Organization", name: "accessiBe" },
+    url: `https://${site.domain}`,
+    email: `mailto:${site.email}`,
+    image: `https://${site.domain}/og.png`,
+    sameAs: [site.linkedinUrl],
+    address: { "@type": "PostalAddress", addressLocality: "Tel Aviv", addressCountry: "IL" },
+    alumniOf: { "@type": "CollegeOrUniversity", name: "Shenkar College of Engineering, Design and Art" },
+    knowsAbout: [
+      "Product Design Leadership",
+      "Design Organization Building",
+      "Web Accessibility",
+      "WCAG",
+      "AI Product Design",
+      "Design Systems",
+      "Product Analytics",
+      "A/B Testing",
+    ],
+  },
 } as const;
 
 export const footer = {
